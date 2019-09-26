@@ -1,0 +1,17 @@
+{
+  "gitzone": {
+    "module": {
+      "githost": "gitlab.com",
+      "gitscope": "mojoio",
+      "gitrepo": "bunq",
+      "shortDescription": "a bunq api abstraction package",
+      "npmPackagename": "@mojoio/bunq",
+      "license": "MIT",
+      "projectDomain": "mojo.io"
+    }
+  },
+  "npmci": {
+    "npmGlobalTools": [],
+    "npmAccessLevel": "public"
+  }
+}
