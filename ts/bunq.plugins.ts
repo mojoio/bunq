@@ -1,4 +1,3 @@
-const removeme = {};
-export {
-  removeme
-}
+import * as bunqCommunityClient from '@bunq-community/bunq-js-client';
+
+export { bunqCommunityClient };
