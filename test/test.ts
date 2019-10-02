@@ -1,8 +1,37 @@
 import { expect, tap } from '@pushrocks/tapbundle';
-import * as bunq from '../ts/index'
+import { Qenv } from '@pushrocks/qenv';
 
-tap.test('first test', async () => {
-  console.log(bunq.standardExport)
-})
+const testQenv = new Qenv('./', './.nogit/');
 
-tap.start()
+import * as bunq from '../ts';
+
+let testBunqAccount: bunq.BunqAccount;
+const testBunqOptions: bunq.IBunqConstructorOptions = {
+  apiKey: testQenv.getEnvVarOnDemand('BUNQ_APIKEY'),
+  deviceName: 'mojoiobunqpackage',
+  environment: 'PRODUCTION'
+};
+
+tap.test('should create a valid bunq account', async () => {
+  testBunqAccount = new bunq.BunqAccount(testBunqOptions);
+  expect(testBunqAccount).to.be.instanceOf(bunq.BunqAccount);
+});
+
+tap.test('should init the client', async () => {
+  await testBunqAccount.init();
+});
+
+tap.test('should get accounts', async () => {
+  const accounts = await testBunqAccount.getAccounts();
+  console.log(accounts[2].alias);
+});
+
+tap.test('should get transactions', async () => {
+  const accounts = await testBunqAccount.getAccounts();
+  for (const account of accounts) {
+    const transactions = await account.getTransactions();
+    // console.log(transactions);
+  }
+});
+
+tap.start();

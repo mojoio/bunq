@@ -1,19 +1,82 @@
 import * as plugins from './bunq.plugins';
+import * as paths from './bunq.paths';
+import { MonetaryAccount } from './bunq.classes.monetaryaccount';
 
 export interface IBunqConstructorOptions {
-  encryptionKey: string; // 16 byte encryption key
-  apiKey: "abcd-1234-abcd-1234"; // Your bunq API key
+  deviceName: string;
+  apiKey: string;
+  environment: 'SANDBOX' | 'PRODUCTION';
 }
 
 /**
  * the main bunq account
  */
 export class BunqAccount {
-  constructor(optionsArg) {
+  public options: IBunqConstructorOptions;
 
+  public bunqJSClient: plugins.bunqCommunityClient.default;
+  public encryptionKey: string;
+  public permittedIps = []; // bunq will use the current ip if omitted
+
+  /**
+   * user id is needed for doing stuff like listing accounts;
+   */
+  public userId: number;
+
+  constructor(optionsArg: IBunqConstructorOptions) {
+    this.options = optionsArg;
   }
 
-  init() {
+  public async init() {
+    this.encryptionKey = plugins.smartcrypto.nodeForge.util.bytesToHex(
+      plugins.smartcrypto.nodeForge.random.getBytesSync(16)
+    );
 
+    // lets setup bunq client
+    await plugins.smartfile.fs.ensureDir(paths.nogitDir);
+    await plugins.smartfile.fs.ensureFile(paths.bunqJsonFile, '{}');
+    const storageInstance = plugins.JSONFileStore(paths.bunqJsonFile);
+    this.bunqJSClient = new plugins.bunqCommunityClient.default(storageInstance);
+
+    // run the bunq application with our API key
+    await this.bunqJSClient.run(
+      this.options.apiKey,
+      this.permittedIps,
+      this.options.environment,
+      this.encryptionKey
+    );
+
+    // install a new keypair
+    await this.bunqJSClient.install();
+
+    // register this device
+    await this.bunqJSClient.registerDevice(this.options.deviceName);
+
+    // register a new session
+    await this.bunqJSClient.registerSession();
+    await this.getUserId();
+  }
+
+  /**
+   * lists all users
+   */
+  private async getUserId() {
+    const users = await this.bunqJSClient.api.user.list();
+    if (users.UserPerson) {
+      this.userId = users.UserPerson.id;
+    } else if (users.UserCompany) {
+      this.userId = users.UserCompany.id;
+    } else {
+      console.log('could not determine user id');
+    }
+  }
+
+  public async getAccounts() {
+    const apiMonetaryAccounts = await this.bunqJSClient.api.monetaryAccount.list(this.userId);
+    const accountsArray: MonetaryAccount[] = [];
+    for (const apiAccount of apiMonetaryAccounts) {
+      accountsArray.push(MonetaryAccount.fromAPIObject(this, apiAccount));
+    }
+    return accountsArray;
   }
 }
