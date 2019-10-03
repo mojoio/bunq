@@ -5,10 +5,6 @@ const testQenv = new Qenv('./', './.nogit/');
 
 import * as bunq from '../ts';
 
-if (process.env.CI) {
-  process.exit(0);
-}
-
 let testBunqAccount: bunq.BunqAccount;
 const testBunqOptions: bunq.IBunqConstructorOptions = {
   apiKey: testQenv.getEnvVarOnDemand('BUNQ_APIKEY'),
