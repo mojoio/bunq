@@ -97,5 +97,6 @@ export class MonetaryAccount {
     for (const apiTransaction of apiTransactions) {
       transactionsArray.push(Transaction.fromApiObject(this, apiTransaction));
     }
+    return transactionsArray;
   }
 }

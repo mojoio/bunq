@@ -34,13 +34,22 @@ export class BunqAccount {
 
     // lets setup bunq client
     await plugins.smartfile.fs.ensureDir(paths.nogitDir);
-    await plugins.smartfile.fs.ensureFile(paths.bunqJsonFile, '{}');
-    const storageInstance = plugins.JSONFileStore(paths.bunqJsonFile);
-    this.bunqJSClient = new plugins.bunqCommunityClient.default(storageInstance);
+    await plugins.smartfile.fs.ensureFile(paths.bunqJsonProductionFile, '{}');
+    await plugins.smartfile.fs.ensureFile(paths.bunqJsonSandboxFile, '{}');
+    let apiKey: string;
+      
+    if (this.options.environment === 'SANDBOX') {
+      this.bunqJSClient = new plugins.bunqCommunityClient.default(plugins.JSONFileStore(paths.bunqJsonSandboxFile));
+      apiKey = await this.bunqJSClient.api.sandboxUser.post();
+      console.log(apiKey);
+    } else {
+      this.bunqJSClient = new plugins.bunqCommunityClient.default(plugins.JSONFileStore(paths.bunqJsonProductionFile));
+      apiKey = this.options.apiKey;
+    }
 
     // run the bunq application with our API key
     await this.bunqJSClient.run(
-      this.options.apiKey,
+      apiKey,
       this.permittedIps,
       this.options.environment,
       this.encryptionKey
@@ -78,5 +87,13 @@ export class BunqAccount {
       accountsArray.push(MonetaryAccount.fromAPIObject(this, apiAccount));
     }
     return accountsArray;
+  }
+
+  public async stop() {
+    if (this.bunqJSClient) {
+      this.bunqJSClient.setKeepAlive(false);
+      this.bunqJSClient.destroyApiSession();
+      this.bunqJSClient = null;
+    }
   }
 }

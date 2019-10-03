@@ -27,15 +27,19 @@ tap.test('should init the client', async () => {
 
 tap.test('should get accounts', async () => {
   const accounts = await testBunqAccount.getAccounts();
-  console.log(accounts[2].alias);
+  console.log(accounts);
 });
 
 tap.test('should get transactions', async () => {
   const accounts = await testBunqAccount.getAccounts();
   for (const account of accounts) {
     const transactions = await account.getTransactions();
-    // console.log(transactions);
+    console.log(transactions);
   }
 });
+
+tap.test('should stop the instance', async () => {
+  await testBunqAccount.stop();
+})
 
 tap.start();

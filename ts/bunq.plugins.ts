@@ -17,7 +17,7 @@ export {
 };
 
 // third party
-import JSONFileStore from "@bunq-community/bunq-js-client/dist/Stores/JSONFileStore"; 
+import JSONFileStore from "@bunq-community/bunq-js-client/dist/Stores/JSONFileStore";
 import * as bunqCommunityClient from '@bunq-community/bunq-js-client';
 
 export { JSONFileStore, bunqCommunityClient };
