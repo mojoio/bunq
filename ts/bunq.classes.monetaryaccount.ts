@@ -91,8 +91,19 @@ export class MonetaryAccount {
   /**
    * gets all transactions no this account
    */
-  public async getTransactions() {
-    const apiTransactions = await this.bunqAccountRef.bunqJSClient.api.payment.list(this.bunqAccountRef.userId, this.id);
+  public async getTransactions(startingIdArg: number | false = false) {
+    const paginationOptions: {
+      count?: number;
+      newer_id?: number | false;
+      older_id?: number | false;
+    } = {
+      count: 200,
+      newer_id: startingIdArg
+    };
+
+
+
+    const apiTransactions = await this.bunqAccountRef.bunqJSClient.api.payment.list(this.bunqAccountRef.userId, this.id, paginationOptions);
     const transactionsArray: Transaction[] = [];
     for (const apiTransaction of apiTransactions) {
       transactionsArray.push(Transaction.fromApiObject(this, apiTransaction));
