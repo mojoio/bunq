@@ -4,7 +4,7 @@ import { MonetaryAccount } from './bunq.classes.monetaryaccount';
 export class Transaction {
   public static fromApiObject(monetaryAccountRefArg: MonetaryAccount, apiObjectArg: any) {
     const newTransaction = new this(monetaryAccountRefArg);
-    Object.assign(newTransaction, apiObjectArg);
+    Object.assign(newTransaction, apiObjectArg.Payment);
     return newTransaction;
   }
 

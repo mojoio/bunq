@@ -14,11 +14,11 @@
   },
   "devDependencies": {
     "@gitzone/tsbuild": "^2.0.22",
-    "@gitzone/tstest": "^1.0.15",
+    "@gitzone/tstest": "^1.0.28",
     "@pushrocks/qenv": "^4.0.6",
-    "@pushrocks/tapbundle": "^3.0.7",
-    "@types/node": "^10.11.7",
-    "tslint": "^5.11.0",
+    "@pushrocks/tapbundle": "^3.2.0",
+    "@types/node": "^12.12.17",
+    "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.15.0"
   },
   "dependencies": {

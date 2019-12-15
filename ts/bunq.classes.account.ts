@@ -89,10 +89,13 @@ export class BunqAccount {
     return accountsArray;
   }
 
+  /**
+   * stops the instance
+   */
   public async stop() {
     if (this.bunqJSClient) {
       this.bunqJSClient.setKeepAlive(false);
-      this.bunqJSClient.destroyApiSession();
+      await this.bunqJSClient.destroyApiSession();
       this.bunqJSClient = null;
     }
   }
