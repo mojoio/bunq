@@ -36,6 +36,6 @@ tap.test('should get transactions', async () => {
 
 tap.test('should stop the instance', async () => {
   await testBunqAccount.stop();
-})
+});
 
 tap.start();

@@ -37,13 +37,17 @@ export class BunqAccount {
     await plugins.smartfile.fs.ensureFile(paths.bunqJsonProductionFile, '{}');
     await plugins.smartfile.fs.ensureFile(paths.bunqJsonSandboxFile, '{}');
     let apiKey: string;
-      
+
     if (this.options.environment === 'SANDBOX') {
-      this.bunqJSClient = new plugins.bunqCommunityClient.default(plugins.JSONFileStore(paths.bunqJsonSandboxFile));
+      this.bunqJSClient = new plugins.bunqCommunityClient.default(
+        plugins.JSONFileStore(paths.bunqJsonSandboxFile)
+      );
       apiKey = await this.bunqJSClient.api.sandboxUser.post();
       console.log(apiKey);
     } else {
-      this.bunqJSClient = new plugins.bunqCommunityClient.default(plugins.JSONFileStore(paths.bunqJsonProductionFile));
+      this.bunqJSClient = new plugins.bunqCommunityClient.default(
+        plugins.JSONFileStore(paths.bunqJsonProductionFile)
+      );
       apiKey = this.options.apiKey;
     }
 

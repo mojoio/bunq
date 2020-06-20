@@ -3,8 +3,8 @@
   "version": "1.0.15",
   "private": false,
   "description": "a bunq api abstraction package",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist_ts/index.js",
+  "typings": "dist_ts/index.d.ts",
   "author": "Lossless GmbH",
   "license": "MIT",
   "scripts": {
@@ -13,19 +13,31 @@
     "format": "(gitzone format)"
   },
   "devDependencies": {
-    "@gitzone/tsbuild": "^2.0.22",
-    "@gitzone/tstest": "^1.0.28",
-    "@pushrocks/qenv": "^4.0.6",
-    "@pushrocks/tapbundle": "^3.2.0",
-    "@types/node": "^12.12.17",
-    "tslint": "^5.20.1",
+    "@gitzone/tsbuild": "^2.1.24",
+    "@gitzone/tstest": "^1.0.33",
+    "@pushrocks/qenv": "^4.0.10",
+    "@pushrocks/tapbundle": "^3.2.1",
+    "@types/node": "^14.0.13",
+    "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.15.0"
   },
   "dependencies": {
-    "@bunq-community/bunq-js-client": "^0.42.1",
+    "@bunq-community/bunq-js-client": "^1.1.2",
     "@pushrocks/smartcrypto": "^1.0.9",
-    "@pushrocks/smartfile": "^7.0.6",
+    "@pushrocks/smartfile": "^7.0.12",
     "@pushrocks/smartpromise": "^3.0.6",
     "json-store": "^1.0.0"
-  }
+  },
+  "files": [
+    "ts/**/*",
+    "ts_web/**/*",
+    "dist/**/*",
+    "dist_*/**/*",
+    "dist_ts/**/*",
+    "dist_ts_web/**/*",
+    "assets/**/*",
+    "cli.js",
+    "npmextra.json",
+    "readme.md"
+  ]
 }

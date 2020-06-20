@@ -8,7 +8,6 @@ export class Transaction {
     return newTransaction;
   }
 
-
   public id: number;
   public created: string;
   public updated: string;
@@ -41,5 +40,4 @@ export class Transaction {
   constructor(monetaryAccountRefArg: MonetaryAccount) {
     this.monetaryAccountRef = monetaryAccountRefArg;
   }
-
 }

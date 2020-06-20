@@ -32,7 +32,7 @@ export class MonetaryAccount {
         throw new Error('unknown accoun type');
     }
 
-    Object.assign(newMonetaryAccount, apiObject[accessor], {type});
+    Object.assign(newMonetaryAccount, apiObject[accessor], { type });
     return newMonetaryAccount;
   }
 
@@ -82,7 +82,6 @@ export class MonetaryAccount {
   public auto_save_id: null;
   public all_auto_save_id: any[];
 
-
   public bunqAccountRef: BunqAccount;
   constructor(bunqAccountRefArg: BunqAccount) {
     this.bunqAccountRef = bunqAccountRefArg;
@@ -101,9 +100,11 @@ export class MonetaryAccount {
       newer_id: startingIdArg
     };
 
-
-
-    const apiTransactions = await this.bunqAccountRef.bunqJSClient.api.payment.list(this.bunqAccountRef.userId, this.id, paginationOptions);
+    const apiTransactions = await this.bunqAccountRef.bunqJSClient.api.payment.list(
+      this.bunqAccountRef.userId,
+      this.id,
+      paginationOptions
+    );
     const transactionsArray: Transaction[] = [];
     for (const apiTransaction of apiTransactions) {
       transactionsArray.push(Transaction.fromApiObject(this, apiTransaction));
