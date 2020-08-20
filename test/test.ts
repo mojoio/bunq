@@ -9,7 +9,7 @@ let testBunqAccount: bunq.BunqAccount;
 const testBunqOptions: bunq.IBunqConstructorOptions = {
   apiKey: testQenv.getEnvVarOnDemand('BUNQ_APIKEY'),
   deviceName: 'mojoiobunqpackage',
-  environment: 'SANDBOX'
+  environment: 'SANDBOX',
 };
 
 tap.test('should create a valid bunq account', async () => {

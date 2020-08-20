@@ -87,9 +87,11 @@ export class BunqAccount {
   }
 
   public async getAccounts() {
-    const apiMonetaryAccounts = await this.bunqJSClient.api.monetaryAccount.list(this.userId, {}).catch(e => {
-      console.log(e);
-    });
+    const apiMonetaryAccounts = await this.bunqJSClient.api.monetaryAccount
+      .list(this.userId, {})
+      .catch((e) => {
+        console.log(e);
+      });
     const accountsArray: MonetaryAccount[] = [];
     for (const apiAccount of apiMonetaryAccounts) {
       accountsArray.push(MonetaryAccount.fromAPIObject(this, apiAccount));

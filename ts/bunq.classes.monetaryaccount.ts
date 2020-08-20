@@ -97,7 +97,7 @@ export class MonetaryAccount {
       older_id?: number | false;
     } = {
       count: 200,
-      newer_id: startingIdArg
+      newer_id: startingIdArg,
     };
 
     const apiTransactions = await this.bunqAccountRef.bunqJSClient.api.payment.list(
