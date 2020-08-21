@@ -1,6 +1,6 @@
 {
   "name": "@mojoio/bunq",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "private": false,
   "description": "a bunq api abstraction package",
   "main": "dist_ts/index.js",
