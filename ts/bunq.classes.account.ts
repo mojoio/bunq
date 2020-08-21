@@ -1,6 +1,6 @@
 import * as plugins from './bunq.plugins';
 import * as paths from './bunq.paths';
-import { MonetaryAccount } from './bunq.classes.monetaryaccount';
+import { BunqMonetaryAccount } from './bunq.classes.monetaryaccount';
 
 export interface IBunqConstructorOptions {
   deviceName: string;
@@ -92,9 +92,9 @@ export class BunqAccount {
       .catch((e) => {
         console.log(e);
       });
-    const accountsArray: MonetaryAccount[] = [];
+    const accountsArray: BunqMonetaryAccount[] = [];
     for (const apiAccount of apiMonetaryAccounts) {
-      accountsArray.push(MonetaryAccount.fromAPIObject(this, apiAccount));
+      accountsArray.push(BunqMonetaryAccount.fromAPIObject(this, apiAccount));
     }
     return accountsArray;
   }

@@ -1,8 +1,8 @@
 import * as plugins from './bunq.plugins';
-import { MonetaryAccount } from './bunq.classes.monetaryaccount';
+import { BunqMonetaryAccount } from './bunq.classes.monetaryaccount';
 
-export class Transaction {
-  public static fromApiObject(monetaryAccountRefArg: MonetaryAccount, apiObjectArg: any) {
+export class BunqTransaction {
+  public static fromApiObject(monetaryAccountRefArg: BunqMonetaryAccount, apiObjectArg: any) {
     const newTransaction = new this(monetaryAccountRefArg);
     Object.assign(newTransaction, apiObjectArg.Payment);
     return newTransaction;
@@ -35,9 +35,9 @@ export class Transaction {
     value: string;
   };
 
-  public monetaryAccountRef: MonetaryAccount;
+  public monetaryAccountRef: BunqMonetaryAccount;
 
-  constructor(monetaryAccountRefArg: MonetaryAccount) {
+  constructor(monetaryAccountRefArg: BunqMonetaryAccount) {
     this.monetaryAccountRef = monetaryAccountRefArg;
   }
 }

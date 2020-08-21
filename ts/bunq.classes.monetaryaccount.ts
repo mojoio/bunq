@@ -1,13 +1,13 @@
 import * as plugins from './bunq.plugins';
 import { BunqAccount } from './bunq.classes.account';
-import { Transaction } from './bunq.classes.transaction';
+import { BunqTransaction } from './bunq.classes.transaction';
 
 export type TAccountType = 'joint' | 'savings' | 'bank';
 
 /**
  * a monetary account
  */
-export class MonetaryAccount {
+export class BunqMonetaryAccount {
   public static fromAPIObject(bunqAccountRef: BunqAccount, apiObject: any) {
     const newMonetaryAccount = new this(bunqAccountRef);
 
@@ -105,9 +105,9 @@ export class MonetaryAccount {
       this.id,
       paginationOptions
     );
-    const transactionsArray: Transaction[] = [];
+    const transactionsArray: BunqTransaction[] = [];
     for (const apiTransaction of apiTransactions) {
-      transactionsArray.push(Transaction.fromApiObject(this, apiTransaction));
+      transactionsArray.push(BunqTransaction.fromApiObject(this, apiTransaction));
     }
     return transactionsArray;
   }
