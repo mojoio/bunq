@@ -20,7 +20,31 @@ export class BunqTransaction {
   public type: 'MASTERCARD' | 'BUNQ';
   public merchant_reference: null;
   public alias: [Object];
-  public counterparty_alias: [Object];
+  public counterparty_alias: {
+    iban: string,
+    is_light: any,
+    display_name: string,
+    avatar: {
+      uuid: string,
+      image: [
+        {
+          attachment_public_uuid: string,
+          height: number,
+          width: number,
+          content_type: string,
+        },
+      ],
+      anchor_uuid: null,
+    },
+    label_user: {
+      uuid: null,
+      display_name: string,
+      country: string,
+      avatar: null,
+      public_nick_name: string,
+    },
+    country: string,
+  };
   public attachment: [];
   public geolocation: null;
   public batch_id: null;
